@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="crumb"><a href="{{ url_for('home') }}">GRID</a> / OPERATOR FEEDBACK</div>
+<h1>OPERATOR FEEDBACK</h1>
+<p class="sub">Leave a note for the grid operations team. An on-call operator reviews new
+notes shortly after they are posted.</p>
+
+<div class="panel">
+  <form method="post">
+    <textarea name="message" placeholder="your note to operations..."></textarea>
+    <button type="submit">TRANSMIT</button>
+  </form>
+</div>
+
+<h2>Recent notes</h2>
+<div class="panel">
+  {% if entries %}
+    {% for e in entries %}
+      <div class="entry">{{ e|safe }}</div>
+    {% endfor %}
+  {% else %}
+    <div class="dim">No notes on the board yet.</div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+# NEON//WIRE 'on-call operator' bot for the stored-XSS challenge.
+# Uses the official Playwright image so Chromium ships preinstalled (reproducible).
+FROM mcr.microsoft.com/playwright/python:v1.47.0-jammy
+WORKDIR /bot
+# Some Playwright base images ship the browsers but not the python package; install it (pinned to match the bundled Chromium).
+RUN pip install --no-cache-dir playwright==1.47.0
+COPY app/bot.py /bot/bot.py
+# The image already ships Chromium; let Playwright resolve it.
+ENV BOT_TARGET=http://web:8080
+CMD ["python", "bot.py"]
