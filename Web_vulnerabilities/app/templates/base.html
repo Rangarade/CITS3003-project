@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEON//WIRE GRID PORTAL</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='neonwire.css') }}">
+</head>
+<body>
+  <header class="bar">
+    <span class="logo">NEON<b>//</b>WIRE</span>
+    <span class="tag">GRID PORTAL · NW-042</span>
+  </header>
+  <div class="wrap">
+    {% block body %}{% endblock %}
+    <footer>NEON//WIRE CORP · UNAUTHORISED ACCESS IS MONITORED · GRID NODE NW-042</footer>
+  </div>
+</body>
+</html>

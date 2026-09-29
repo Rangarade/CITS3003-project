@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="crumb"><a href="{{ url_for('ops_dashboard') }}">OPS</a> / NOTIFICATION TEMPLATES</div>
+<h1>NOTIFICATION TEMPLATES</h1>
+<p class="sub">Compose an operator broadcast. The grid engine renders your template before
+dispatch, so you can embed dynamic fields (e.g. <span class="dim">Grid time: {% raw %}{{ now }}{% endraw %}</span>).</p>
+
+<div class="panel">
+  <form method="post">
+    <textarea name="template" placeholder="Broadcast template...">{{ tpl|e }}</textarea>
+    <button type="submit">RENDER PREVIEW</button>
+  </form>
+
+  {% if rendered is not none %}
+    <h2>Preview</h2>
+    <pre>{{ rendered }}</pre>
+  {% endif %}
+  {% if error %}
+    <div class="result empty">{{ error }}</div>
+  {% endif %}
+</div>
+{% endblock %}

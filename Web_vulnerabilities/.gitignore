@@ -1,0 +1,5 @@
+app/.venv/
+app/__pycache__/
+app/grid.db
+app/flag_ssti.txt
+*.pyc

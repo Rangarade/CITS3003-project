@@ -1,0 +1,25 @@
+# NEON//WIRE web-vulnerabilities box.
+#   web  - the vulnerable Flask portal (challenges 1-3), published on :8080
+#   bot  - the 'on-call operator' that reviews the feedback board (challenge 2)
+#
+# Bring up:   docker compose up --build
+# Tear down:  docker compose down
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      - BOT_TARGET=http://web:8080
+      - BOT_FLAG_COOKIE=FLAG{nw042_xss_cookie_theft}
+    depends_on:
+      - web
+    restart: unless-stopped

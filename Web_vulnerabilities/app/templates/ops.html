@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="crumb"><a href="{{ url_for('home') }}">GRID</a> / OPS CONSOLE</div>
+<h1>OPS CONSOLE</h1>
+<p class="sub ok">&gt;&gt; Administrative grid session validated.</p>
+
+<div class="panel">
+  <a class="node" href="{{ url_for('ops_template') }}">
+    <span class="k">&gt; NOTIFICATION TEMPLATES</span>
+    <div class="d">Compose operator broadcast templates rendered by the grid engine.</div>
+  </a>
+</div>
+{% endblock %}

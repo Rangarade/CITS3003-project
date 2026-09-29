@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="crumb"><a href="{{ url_for('home') }}">GRID</a> / ACCESS</div>
+<h1 class="bad">ACCESS DENIED</h1>
+<p class="sub">Administrative grid session required. This interface is restricted to
+on-call operators.</p>
+<div class="panel dim">
+  Session token missing or invalid. If you are an operator, ensure your grid
+  session cookie is present.
+</div>
+{% endblock %}

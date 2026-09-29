@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="crumb"><a href="{{ url_for('home') }}">GRID</a> / ASSET REGISTRY</div>
+<h1>ASSET REGISTRY</h1>
+<p class="sub">Look up a grid asset by codename. Known assets: nexus, halcyon, cinder, obsidian.</p>
+
+<div class="panel">
+  <form method="get">
+    <input type="text" name="q" value="{{ q|e }}" placeholder="codename" autofocus>
+    <button type="submit">QUERY</button>
+  </form>
+
+  {% if result == 'found' %}
+    <div class="result found">&gt;&gt; ASSET NODE FOUND IN REGISTRY</div>
+  {% elif result == 'empty' %}
+    <div class="result empty">&gt;&gt; NO MATCHING ASSET NODE</div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>GRID OPERATIONS PORTAL</h1>
+<p class="sub">Authenticated corporate interface for NEON//WIRE data node NW-042.</p>
+
+<div class="panel">
+  <a class="node" href="{{ url_for('records') }}">
+    <span class="k">&gt; ASSET REGISTRY</span>
+    <div class="d">Query the grid asset registry by codename.</div>
+  </a>
+  <a class="node" href="{{ url_for('feedback') }}">
+    <span class="k">&gt; OPERATOR FEEDBACK</span>
+    <div class="d">Submit a note to the grid operations team. Reviewed by an on-call operator.</div>
+  </a>
+  <a class="node" href="{{ url_for('ops_dashboard') }}">
+    <span class="k">&gt; OPS CONSOLE</span>
+    <div class="d">Restricted. Administrative session required.</div>
+  </a>
+</div>
+{% endblock %}
