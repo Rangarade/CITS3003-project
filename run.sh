@@ -170,7 +170,7 @@ if [ ! -f "RE-03_Encrypted_Cache/handout/hidden_flag" ]; then
     failure
 fi
 
-chmod +x RE-03_Encrypted_Cache/hidden_flag
+chmod +x RE-03_Encrypted_Cache/handout/hidden_flag
 
 
 echo "[+] Starting RE-02..."
