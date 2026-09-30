@@ -6,7 +6,7 @@ HOST = "0.0.0.0"
 PORT = 9001
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-BACKUP_DIR = os.path.join(os.path.dirname(__file__), "backups")
+BACKUP_DIR = os.path.join(BASE_DIR, "backups")
 
 USERS = {
     "backup_admin": True
@@ -417,12 +417,12 @@ while True:
             filename = data[4:].strip()
 
             restricted_files = {
-                "backups/config/admin.txt",
-                "backups/logs/session_debug.log"
+                "config/admin.txt",
+                "logs/session_debug.log"
             }
 
             requested_path = os.path.abspath(
-                os.path.join(BASE_DIR, filename)
+                os.path.join(BACKUP_DIR, filename)
             )
 
             if not requested_path.startswith(BASE_DIR + os.sep):
