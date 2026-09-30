@@ -1,0 +1,61 @@
+NEON//WIRE ADMINISTRATIVE CONFIGURATION
+=======================================
+
+CLEARANCE: EXECUTIVE
+
+The following administrative interfaces are available
+to authenticated Network Operations personnel.
+
+SESSION MANAGEMENT
+-------------------
+
+Administrative sessions may be attached to an existing
+session credential using the ATTACH interface.
+
+Use ATTACH <session credential> to restore an active
+administrative session.
+
+Previously established sessions may remain active within
+the Identity Persistence subsystem after the original
+connection has been closed.
+
+
+SESSION DIAGNOSTICS
+-------------------
+
+The Identity Persistence subsystem maintains diagnostic
+records for active administrative sessions.
+
+Diagnostic records are normally restricted to authenticated
+administrative identities.
+
+
+ADMINISTRATIVE ACCESS
+------------------------
+
+The ADMIN interface provides access to restricted
+administrative records.
+
+Use ADMIN after establishing a valid administrative session.
+
+
+ADMINISTRATIVE REPORTING
+------------------------
+
+The REPORT interface provides access to
+restricted Network Operations records.
+
+Use REPORT after authentication to access
+the current administrative security report.
+
+AVAILABLE INTERFACES:
+
+SESSION ATTACHMENT
+REPORT
+SESSION DIAGNOSTICS
+
+
+WARNING:
+
+Session credentials are security-sensitive information.
+They should never be exposed through diagnostic output.
