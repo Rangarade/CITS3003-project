@@ -1,0 +1,15 @@
+=====================================================================
+  Operator .... hex    (contract sysadmin, group: netops)
+  Client ...... anonymous
+  Fixer ....... Dismas
+  Objective ... escalate to ROOT on blacknode7 and plant the
+                persistence implant before the 06:00 audit sweep
+  Note ........ three separate weaknesses are documented but were
+                never fixed. Any ONE of them opens the root cell.
+                if you can exploit all three i'll toss in a bonus.
+=====================================================================
+  Ops documented their own mistakes and then argued with the
+  auditor about them. The backlog is still in the /srv/ directory
+  tree. Read what they left lying around.
+  The payoff lies in the /root/ folder.
+=====================================================================
