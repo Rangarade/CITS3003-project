@@ -202,6 +202,34 @@ fi
 
 
 # ==========================================
+# Horizontal escalations
+# ==========================================
+
+cd "$BASE_DIR/Horizontal_escalations"
+
+echo "[+] Preparing horizontal escalation challenge..."
+
+if [ ! -f "Dockerfile" ]; then
+    echo "[!] Horizontal escalation Dockerfile not found."
+    failure
+fi
+
+echo "[+] Building Ironveil Docker image..."
+
+if ! docker build -t ironveil-exfil .; then
+    echo "[!] Failed to build Ironveil Docker image."
+    failure
+fi
+
+if ! docker image inspect ironveil-exfil >/dev/null 2>&1; then
+    echo "[!] Ironveil Docker image was not created."
+    failure
+fi
+
+echo "[+] Ironveil Docker image ready."
+
+
+# ==========================================
 # Status
 # ==========================================
 
@@ -220,6 +248,9 @@ echo " Reverse engineering:"
 echo "   RE-01: local binary"
 echo "   RE-02: Docker"
 echo "   RE-03: local binary"
+echo
+echo " Horizontal escalations:"
+echo "   Ironveil: Docker"
 echo
 echo " Press Ctrl+C to stop the CTF."
 echo "=========================================="
