@@ -2,10 +2,10 @@ NEON//WIRE FLAG LIST
 ====================
 
 FLAG 1
-FLAG{backup_path_traversal}
+FLAG{meet_me_in_the_afterlife}
 
 FLAG 2
-FLAG{predictable_auth_token}
+FLAG{authentication_bypassed}
 
 FLAG 3
-FLAG{leaked_session_credential}
+FLAG{beyond_the_blackwall}

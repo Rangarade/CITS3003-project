@@ -358,7 +358,7 @@ while True:
                         b"Session validation: PASSED\n"
                         b"\n"
                         b"CTF-ADMIN-CODE: "
-                        b"FLAG{leaked_session_credential}\n"
+                        b"FLAG{beyond_the_blackwall}\n"
                     )
 
         elif data.upper() == "REPORT":
@@ -378,7 +378,7 @@ while True:
                     b"Identity validation: PASSED\n"
                     b"\n"
                     b"CTF-ADMIN-CODE: "
-                    b"FLAG{predictable_auth_token}\n"
+                    b"FLAG{authentication_bypassed}\n"
                 )
 
         elif data.upper().startswith("LIST"):
