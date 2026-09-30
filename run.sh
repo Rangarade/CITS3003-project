@@ -7,6 +7,9 @@ BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
 WEB_PID=""
 NETWORK_PID=""
 
+HORIZONTAL_CONTAINER="ironveil-horizontal"
+VERTICAL_CONTAINER="ironveil-vertical"
+
 echo "=========================================="
 echo "        NEON//WIRE CTF BOX"
 echo "=========================================="
@@ -35,8 +38,8 @@ cleanup() {
     cd "$BASE_DIR/Web_vulnerabilities" 2>/dev/null || true
     docker compose down 2>/dev/null || true
 
-    cd "$BASE_DIR/Reverse_engineering/RE-02_Diagnostic_Relay" 2>/dev/null || true
-    docker compose down 2>/dev/null || true
+    docker rm -f "$HORIZONTAL_CONTAINER" 2>/dev/null || true
+    docker rm -f "$VERTICAL_CONTAINER" 2>/dev/null || true
 
     echo "[+] All services stopped."
 }
@@ -221,12 +224,56 @@ if ! docker build -t ironveil-exfil .; then
     failure
 fi
 
-if ! docker image inspect ironveil-exfil >/dev/null 2>&1; then
-    echo "[!] Ironveil Docker image was not created."
+echo "[+] Starting Ironveil container..."
+
+docker rm -f "$HORIZONTAL_CONTAINER" 2>/dev/null || true
+
+if ! docker run -d -it \
+    --name "$HORIZONTAL_CONTAINER" \
+    --hostname ironveil \
+    ironveil-exfil; then
+
+    echo "[!] Failed to start Ironveil container."
     failure
 fi
 
-echo "[+] Ironveil Docker image ready."
+echo "[+] Ironveil container started."
+
+
+# ==========================================
+# Vertical escalations
+# ==========================================
+
+cd "$BASE_DIR/Vertical_escalations"
+
+echo "[+] Preparing vertical escalation challenge..."
+
+if [ ! -f "Dockerfile" ]; then
+    echo "[!] Vertical escalation Dockerfile not found."
+    failure
+fi
+
+echo "[+] Building Ironveil Root Docker image..."
+
+if ! docker build -t ironveil-root .; then
+    echo "[!] Failed to build Ironveil Root Docker image."
+    failure
+fi
+
+echo "[+] Starting Ironveil Root container..."
+
+docker rm -f "$VERTICAL_CONTAINER" 2>/dev/null || true
+
+if ! docker run -d -it \
+    --name "$VERTICAL_CONTAINER" \
+    --hostname blacknode7 \
+    ironveil-root; then
+
+    echo "[!] Failed to start Ironveil Root container."
+    failure
+fi
+
+echo "[+] Ironveil Root container started."
 
 
 # ==========================================
@@ -251,6 +298,9 @@ echo "   RE-03: local binary"
 echo
 echo " Horizontal escalations:"
 echo "   Ironveil: Docker"
+echo
+echo " Vertical escalations:"
+echo "   Ironveil Root: Docker"
 echo
 echo " Press Ctrl+C to stop the CTF."
 echo "=========================================="
