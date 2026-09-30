@@ -155,17 +155,17 @@ cd "$BASE_DIR/Reverse_engineering"
 
 echo "[+] Preparing RE-01..."
 
-if [ ! -f "RE-01_Secure_Vault/vm_check" ]; then
+if [ ! -f "RE-01_Secure_Vault/handout/vm_check" ]; then
     echo "[!] RE-01 binary not found."
     failure
 fi
 
-chmod +x RE-01_Secure_Vault/vm_check
+chmod +x RE-01_Secure_Vault/handout/vm_check
 
 
 echo "[+] Preparing RE-03..."
 
-if [ ! -f "RE-03_Encrypted_Cache/hidden_flag" ]; then
+if [ ! -f "RE-03_Encrypted_Cache/handout/hidden_flag" ]; then
     echo "[!] RE-03 binary not found."
     failure
 fi
