@@ -1,0 +1,14 @@
+CITS3006 Project — Group Flag List
+Category: Reverse Engineering (RE-01, RE-02, RE-03)
+Submitted by: Charlotte
+
+RE-01 — NEON//WIRE Secure Vault (vm_check)
+flag{vault_cipher_broken}
+
+RE-02 — NEON//WIRE Diagnostic Relay (debug_helper) [also Vertical Privilege Escalation root path]
+flag{diagnostic_backdoor_abused}
+
+RE-03 — NEON//WIRE Encrypted Cache (hidden_flag)
+flag{cache_payload_recovered}
+
+
