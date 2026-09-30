@@ -5,6 +5,7 @@ import time
 HOST = "0.0.0.0"
 PORT = 9001
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKUP_DIR = os.path.join(os.path.dirname(__file__), "backups")
 
 USERS = {
@@ -416,28 +417,34 @@ while True:
             filename = data[4:].strip()
 
             restricted_files = {
-                "config/admin.txt",
-                "logs/session_debug.log"
+                "backups/config/admin.txt",
+                "backups/logs/session_debug.log"
             }
 
-            if filename in restricted_files and not authenticated:
+            requested_path = os.path.abspath(
+                os.path.join(BASE_DIR, filename)
+            )
+
+            if not requested_path.startswith(BASE_DIR + os.sep):
+                client.sendall(
+                    b"\nACCESS DENIED: PATH OUTSIDE MARKERS-ONLY.\n"
+                )
+
+            elif filename in restricted_files and not authenticated:
                 client.sendall(
                     b"\nCLEARANCE REQUIRED FOR THIS RECORD.\n"
                 )
 
-            else:
-                filepath = os.path.join(BACKUP_DIR, filename)
-
-                if os.path.isfile(filepath):
-                    with open(filepath, "rb") as file:
-                        client.sendall(
-                            b"\n" + file.read()
-                        )
-
-                else:
+            elif os.path.isfile(requested_path):
+                with open(requested_path, "rb") as file:
                     client.sendall(
-                        b"\nARCHIVE RECORD NOT FOUND.\n"
+                        b"\n" + file.read()
                     )
+
+            else:
+                client.sendall(
+                    b"\nARCHIVE RECORD NOT FOUND.\n"
+                )
 
         else:
             client.sendall(
