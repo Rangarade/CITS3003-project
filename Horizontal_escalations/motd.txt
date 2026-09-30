@@ -1,0 +1,27 @@
+=====================================================================
+  Operator .... VANCE   (contract netrunner, freelance)
+  Fixer ....... Dismas
+  Client ...... anonymous
+  Objective ... exfiltrate the IRONVEIL manifest from the vault tier
+                before the 06:00 audit sweep
+  Note ........ neural_manifest.dat is stored in srv/vault, you may
+                need to jump through a few accounts before you get it
+                two checkpoint tokens (flag1, flag2) will be found
+                along the way
+                one more thing, ironveil runs their vms on
+                debian:bookworm-slim for storage, you won't have
+                access to as many tools on your vm as you'd like
+=====================================================================
+  Vance,
+
+  Ironveil specialises in manufacturing heavy machinery, specifically
+  mining and metallurgy. Our client's looking for the details on
+  their next shipping manifest. We've already got you logged in as
+  a standard employee, but that's all we can do from our side.
+  Supposedly Ironveil's OpSec and IT is a mess, shouldn't be too
+  hard to find an in.
+  Payment's yours as soon as you upload the manifest.
+  
+  - Dismas
+=====================================================================
+
