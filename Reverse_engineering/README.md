@@ -27,7 +27,13 @@ Both are standalone stripped x86-64 binaries with no dependencies beyond glibc:
 Setup — RE-02 requires Docker
 -------------------------------
 The vulnerability depends on a root-owned SUID binary, a permission bit that
-cannot survive plain file transfer and must be set at image-build time:
+cannot survive plain file transfer and must be set at image-build time. The group's 
+run.sh already loads the image and starts the container
+(re-diagnostic-relay) automatically at boot — just attach to it:
+
+    docker exec -it re-diagnostic-relay bash
+
+If running RE-02 standalone, outside the group script: 
 
     docker load -i debug_helper_image.tar.gz
     docker run --rm -it ctf-debug-helper
@@ -48,9 +54,11 @@ Notes for players
 Integration (for the group VM/init-script)
 ---------------------------------------------
 Self-contained under `Reverse_engineering/`. RE-01 and RE-03 need no setup
-beyond making the binaries executable. RE-02's init step (if scripted) is:
+beyond making the binaries executable. RE-02 is started automatically by the group's run.sh, which loads the
+image and launches it detached as re-diagnostic-relay:
 
     docker load -i Reverse_engineering/RE-02_Diagnostic_Relay/debug_helper_image.tar.gz
+    docker run -d -it --name re-diagnostic-relay ctf-debug-helper
 
 No ports are exposed by any of these three challenges (all are local
 binaries, not network services). Marker-only material (source code, solve
