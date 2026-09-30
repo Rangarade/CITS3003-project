@@ -7,6 +7,7 @@ BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
 WEB_PID=""
 NETWORK_PID=""
 
+RE02_CONTAINER="re-diagnostic-relay"
 HORIZONTAL_CONTAINER="ironveil-horizontal"
 VERTICAL_CONTAINER="ironveil-vertical"
 
@@ -38,6 +39,7 @@ cleanup() {
     cd "$BASE_DIR/Web_vulnerabilities" 2>/dev/null || true
     docker compose down 2>/dev/null || true
 
+    docker rm -f "$RE02_CONTAINER" 2>/dev/null || true
     docker rm -f "$HORIZONTAL_CONTAINER" 2>/dev/null || true
     docker rm -f "$VERTICAL_CONTAINER" 2>/dev/null || true
 
@@ -180,28 +182,29 @@ echo "[+] Starting RE-02..."
 
 cd "$BASE_DIR/Reverse_engineering/RE-02_Diagnostic_Relay"
 
-if [ -f "compose.yaml" ] || [ -f "docker-compose.yml" ]; then
-
-    if ! docker compose up -d --wait; then
-        echo "[!] RE-02 failed to start."
-        failure
-    fi
-
-else
-
-    if [ ! -f "debug_helper_image.tar.gz" ]; then
-        echo "[!] RE-02 Docker image not found."
-        failure
-    fi
-
-    if ! docker load -i debug_helper_image.tar.gz; then
-        echo "[!] Failed to load RE-02 Docker image."
-        failure
-    fi
-
-    echo "[+] RE-02 Docker image loaded."
-
+if [ ! -f "debug_helper_image.tar.gz" ]; then
+    echo "[!] RE-02 Docker image not found."
+    failure
 fi
+
+if ! docker load -i debug_helper_image.tar.gz; then
+    echo "[!] Failed to load RE-02 Docker image."
+    failure
+fi
+
+echo "[+] RE-02 Docker image loaded."
+
+docker rm -f "$RE02_CONTAINER" 2>/dev/null || true
+
+if ! docker run -d -it \
+    --name "$RE02_CONTAINER" \
+    ctf-debug-helper; then
+
+    echo "[!] Failed to start RE-02 container."
+    failure
+fi
+
+echo "[+] RE-02 container started."
 
 
 # ==========================================
