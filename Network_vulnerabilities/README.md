@@ -28,7 +28,13 @@ Setup
 
 All network challenges are contained within the supplied
 
-`Network/` directory and are started together using:
+`Network_vulnerabilities/` directory and are started together using:
+
+```text
+python3 server.py
+```
+
+OR 
 
 ```text
 chmod +x run.sh
