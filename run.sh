@@ -11,6 +11,7 @@ echo "=========================================="
 echo "        NEON//WIRE CTF BOX"
 echo "=========================================="
 echo
+echo "[*] Checking Docker..."
 echo "[*] Starting Web Vulnerabilities..."
 echo "[*] Starting Network Vulnerabilities..."
 echo "[*] Preparing Reverse Engineering..."
@@ -31,6 +32,12 @@ cleanup() {
         wait "$NETWORK_PID" 2>/dev/null || true
     fi
 
+    cd "$BASE_DIR/Web_vulnerabilities" 2>/dev/null || true
+    docker compose down 2>/dev/null || true
+
+    cd "$BASE_DIR/Reverse_engineering/RE-02_Diagnostic_Relay" 2>/dev/null || true
+    docker compose down 2>/dev/null || true
+
     echo "[+] All services stopped."
 }
 
@@ -46,6 +53,43 @@ trap cleanup SIGINT SIGTERM
 
 
 # ==========================================
+# Docker
+# ==========================================
+
+if ! command -v docker >/dev/null 2>&1; then
+    echo "[!] Docker is not installed."
+    failure
+fi
+
+if ! docker info >/dev/null 2>&1; then
+    echo "[*] Docker is not running."
+    echo "[*] Starting Docker..."
+
+    if ! sudo systemctl start docker; then
+        echo "[!] Failed to start Docker."
+        failure
+    fi
+
+    sleep 2
+fi
+
+if ! docker info >/dev/null 2>&1; then
+    echo "[!] Docker daemon is still unavailable."
+    failure
+fi
+
+echo "[+] Docker is running."
+
+
+if ! docker compose version >/dev/null 2>&1; then
+    echo "[!] Docker Compose is not available."
+    failure
+fi
+
+echo "[+] Docker Compose is available."
+
+
+# ==========================================
 # Web vulnerabilities
 # ==========================================
 
@@ -53,14 +97,30 @@ cd "$BASE_DIR/Web_vulnerabilities"
 
 echo "[*] Starting web service..."
 
-./run.sh &
-WEB_PID=$!
+if [ -f "compose.yaml" ] || [ -f "docker-compose.yml" ]; then
 
-sleep 2
+    if ! docker compose up -d --wait; then
+        echo "[!] Web service failed to start."
+        failure
+    fi
 
-if ! kill -0 "$WEB_PID" 2>/dev/null; then
-    echo "[!] Web service failed to start."
-    failure
+else
+
+    if [ ! -f "run.sh" ]; then
+        echo "[!] Web run.sh not found."
+        failure
+    fi
+
+    ./run.sh &
+    WEB_PID=$!
+
+    sleep 2
+
+    if ! kill -0 "$WEB_PID" 2>/dev/null; then
+        echo "[!] Web service failed to start."
+        failure
+    fi
+
 fi
 
 echo "[+] Web service started."
@@ -113,19 +173,32 @@ fi
 chmod +x RE-03_Encrypted_Cache/hidden_flag
 
 
-echo "[+] Loading RE-02 Docker image..."
+echo "[+] Starting RE-02..."
 
-if [ ! -f "RE-02_Diagnostic_Relay/debug_helper_image.tar.gz" ]; then
-    echo "[!] RE-02 Docker image not found."
-    failure
+cd "$BASE_DIR/Reverse_engineering/RE-02_Diagnostic_Relay"
+
+if [ -f "compose.yaml" ] || [ -f "docker-compose.yml" ]; then
+
+    if ! docker compose up -d --wait; then
+        echo "[!] RE-02 failed to start."
+        failure
+    fi
+
+else
+
+    if [ ! -f "debug_helper_image.tar.gz" ]; then
+        echo "[!] RE-02 Docker image not found."
+        failure
+    fi
+
+    if ! docker load -i debug_helper_image.tar.gz; then
+        echo "[!] Failed to load RE-02 Docker image."
+        failure
+    fi
+
+    echo "[+] RE-02 Docker image loaded."
+
 fi
-
-if ! docker load -i RE-02_Diagnostic_Relay/debug_helper_image.tar.gz; then
-    echo "[!] Failed to load RE-02 Docker image."
-    failure
-fi
-
-echo "[+] RE-02 Docker image loaded."
 
 
 # ==========================================
@@ -145,10 +218,10 @@ echo "   TCP port 9001"
 echo
 echo " Reverse engineering:"
 echo "   RE-01: local binary"
-echo "   RE-02: Docker container"
+echo "   RE-02: Docker"
 echo "   RE-03: local binary"
 echo
-echo " Press Ctrl+C to stop network services."
+echo " Press Ctrl+C to stop the CTF."
 echo "=========================================="
 echo
 
