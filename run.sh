@@ -301,9 +301,11 @@ echo "   RE-03: local binary"
 echo
 echo " Horizontal escalations:"
 echo "   Ironveil: Docker"
+echo "   docker exec -it ironveil-horizontal su - vance"
 echo
 echo " Vertical escalations:"
 echo "   Ironveil Root: Docker"
+echo "   docker exec -it ironveil-vertical su - hex"
 echo
 echo " Press Ctrl+C to stop the CTF."
 echo "=========================================="
