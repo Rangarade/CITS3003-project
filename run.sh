@@ -135,7 +135,7 @@ echo "[+] Web service started."
 # Network vulnerabilities
 # ==========================================
 
-cd "$BASE_DIR/Network_vulnerabilities/marker-only"
+cd "$BASE_DIR/Network_vulnerabilities/do-not-open"
 
 echo "[*] Starting network service..."
 
