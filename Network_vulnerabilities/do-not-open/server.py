@@ -386,14 +386,27 @@ while True:
             if path == "":
                 directory = BACKUP_DIR
             else:
-                directory = os.path.join(BACKUP_DIR, path)
+                directory = os.path.abspath(
+                    os.path.join(BACKUP_DIR, path)
+                )
 
-            if os.path.isdir(directory):
+            backup_root = os.path.abspath(BACKUP_DIR)
+
+            # Restrict LIST to backups/ and its subdirectories
+            if not (
+                directory == backup_root
+                or directory.startswith(backup_root + os.sep)
+            ):
+                client.sendall(
+                    b"\nACCESS DENIED: DIRECTORY OUTSIDE BACKUP ARCHIVE.\n"
+                )
+
+            elif os.path.isdir(directory):
                 entries = os.listdir(directory)
 
                 response = (
                     f"\nARCHIVE DIRECTORY: "
-                    f"{path or 'backups/'}\n"
+                    f"{os.path.relpath(directory, BASE_DIR)}/\n"
                     f"---------------------------------\n"
                 )
 
@@ -426,7 +439,7 @@ while True:
 
             if not requested_path.startswith(BASE_DIR + os.sep):
                 client.sendall(
-                    b"\nACCESS DENIED: PATH OUTSIDE MARKERS-ONLY.\n"
+                    b"\nACCESS DENIED\n"
                 )
 
             elif filename in restricted_files and not authenticated:
