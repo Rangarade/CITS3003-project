@@ -71,3 +71,43 @@ Challenge 3
 ```
 
 Challenge 2 provides information or access required to complete Challenge 3.
+
+================================
+
+# IRONVEIL — Horizontal Escalation Challenges
+
+3 vulnerabilities chained together to reach the final flag.
+
+3 flags in total.
+
+--------------------
+Notes for players
+
+* These challenges are intended to be solved through the vulnerabilities
+  provided.
+* Relevant logs, configuration files and service responses may contain
+  information required to progress.
+* Do not inspect or modify the challenge source code to obtain the flags.
+* Do not attempt to gain root access on this image.
+* Do not attack services or systems outside the supplied CTF environment.
+
+================================
+
+# IRONVEIL — Vertical Escalation Challenges
+
+Three different vulnerabilities that all allow root escalation. Acquiring root by any means
+grants access to the root flag, the two advanced attacks each grant their own flags.
+
+3 flags.
+
+All 3 root access challenges are completely independent, and can be completed in any order.
+
+Notes for players
+--------------------
+* These challenges are intended to be solved through the vulnerabilities
+  provided.
+* While you may choose to write a script, it is never strictly mandatory.
+* Relevant logs, configuration files and service responses may contain
+  information required to progress.
+* Do not inspect or modify the challenge source code to obtain the flags.
+* Do not attack services or systems outside the supplied CTF environment.
