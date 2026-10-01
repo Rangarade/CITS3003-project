@@ -6,17 +6,7 @@ Part of the group CTF box. Three different vulnerabilities that must be chained
 
 together to reach the final flag.
 
-Challenges (3 flags)
-
-**---------------------**
-
-| # | Name                              | Vulnerability                    | Flag      |
-| - | --------------------------------- | -------------------------------- | --------- |
-| 1 | IRONVEIL Handover report          | Exposed Credentials              | FLAG{...} |
-| 2 | IRONVEIL Backup exploit           | Sudo file sources user owned config | FLAG{...} |
-| 3 | IRONVEIL Cron vulnerability       | Privileged cron task              | FLAG{...} |
-
-Challenges must be completed sequentially.
+3 flags.
 
 Setup
 
@@ -24,7 +14,7 @@ Setup
 
 All challenges are contained within the supplied
 
-`Horizontal_escalations/` directory and are started using the ```run.sh``` command in the main directory.
+`/Horizontal_escalations/` directory and are started using the ```run.sh``` command in the main directory.
 
 Then, launch a different shell and enter
 
@@ -49,4 +39,4 @@ Notes for players
 * Do not attack services or systems outside the supplied CTF environment.
 
 * Flag 3's solution may seem to fail silently with no reason or warning.
-  Double check folder permissions with ```ls -al``` carefully.
+  Double check permissions carefully.
