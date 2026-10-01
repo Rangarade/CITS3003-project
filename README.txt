@@ -113,7 +113,7 @@ Notes for players
 * Do not attack services or systems outside the supplied CTF environment.
 
 ============================================
-NEON//WIRE — Reverse Engineering Challenges
+# NEON//WIRE — Reverse Engineering Challenges
 
 
 Part of the group CTF box. Three standalone binaries hidden across the
