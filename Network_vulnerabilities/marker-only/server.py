@@ -119,7 +119,7 @@ with open(SECURITY_LOG, "w") as file:
         "Identity: backup_operator\n"
         "Request: AUTHENTICATION\n"
         "Node clock: 1790756062\n"
-        "Challenge: 1790756079\n"
+        "Challenge: backup_operator-1790756079\n"
         "Result: CHALLENGE ISSUED\n\n"
 
         "[2026-09-30 08:14:29]\n"
@@ -131,7 +131,7 @@ with open(SECURITY_LOG, "w") as file:
         "Identity: backup_admin\n"
         "Request: AUTHENTICATION\n"
         "Node clock: 1790760667\n"
-        "Challenge: 1790760684\n"
+        "Challenge: backup_admin-1790760684\n"
         "Result: CHALLENGE ISSUED\n\n"
 
         "[2026-09-30 09:31:12]\n"
@@ -143,7 +143,7 @@ with open(SECURITY_LOG, "w") as file:
         "Identity: backup_operator\n"
         "Request: AUTHENTICATION\n"
         "Node clock: 1790764971\n"
-        "Challenge: 1790764988\n"
+        "Challenge: backup_operator-1790764988\n"
         "Result: CHALLENGE ISSUED\n\n"
 
         "[2026-09-30 10:43:03]\n"
@@ -155,7 +155,7 @@ with open(SECURITY_LOG, "w") as file:
         "Identity: backup_admin\n"
         "Request: AUTHENTICATION\n"
         "Node clock: 1790766994\n"
-        "Challenge: 1790767011\n"
+        "Challenge: backup_admin-1790767011\n"
         "Result: CHALLENGE ISSUED\n\n"
     )
 
@@ -243,8 +243,7 @@ while True:
                             f"Identity: {username}\n"
                             f"Request: AUTHENTICATION\n"
                             f"Node clock: {token_created}\n"
-                            f"Challenge: "
-                            f"{token_created + TOKEN_OFFSET}\n"
+                            f"Challenge: {username}-{token_created + TOKEN_OFFSET}\n"
                             f"Result: CHALLENGE ISSUED\n\n"
                         )
 
