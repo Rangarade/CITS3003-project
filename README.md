@@ -72,7 +72,7 @@ Challenge 3
 
 Challenge 2 provides information or access required to complete Challenge 3.
 
-================================
+
 
 # IRONVEIL — Horizontal Escalation Challenges
 
@@ -80,8 +80,8 @@ Challenge 2 provides information or access required to complete Challenge 3.
 
 3 flags in total.
 
---------------------
-Notes for players
+
+## Notes for players
 
 * These challenges are intended to be solved through the vulnerabilities
   provided.
@@ -91,7 +91,7 @@ Notes for players
 * Do not attempt to gain root access on this image.
 * Do not attack services or systems outside the supplied CTF environment.
 
-================================
+
 
 # IRONVEIL — Vertical Escalation Challenges
 
@@ -102,8 +102,7 @@ grants access to the root flag, the two advanced attacks each grant their own fl
 
 All 3 root access challenges are completely independent, and can be completed in any order.
 
-Notes for players
---------------------
+## Notes for players
 * These challenges are intended to be solved through the vulnerabilities
   provided.
 * While you may choose to write a script, it is never strictly mandatory.
@@ -112,7 +111,9 @@ Notes for players
 * Do not inspect or modify the challenge source code to obtain the flags.
 * Do not attack services or systems outside the supplied CTF environment.
 
-============================================
+
+
+
 # NEON//WIRE — Reverse Engineering Challenges
 
 
@@ -120,8 +121,7 @@ Part of the group CTF box. Three standalone binaries hidden across the
 NEON//WIRE network, each requiring static or dynamic reverse engineering
 to recover its flag. Same universe as the network and web nodes.
 
-Challenges (3 flags)
----------------------
+## Challenges (3 flags)
 | # | Node      | Name                        | Flag |
 |---|-----------|-----------------------------|------|
 | 1 | VAULT-07  | NEON//WIRE Secure Vault      | flag{...} |
@@ -131,16 +131,14 @@ Challenges (3 flags)
 Challenge 2 also functions as a vertical privilege-escalation root path
 solving it yields a root shell, not just the flag.
 
-Setup — no Docker needed for RE-01 / RE-03
---------------------------------------------
+## Setup — no Docker needed for RE-01 / RE-03
 Both are standalone stripped x86-64 binaries with no dependencies beyond glibc:
 
     chmod +x vm_check hidden_flag
     ./vm_check <access_key>
     ./hidden_flag unlock
 
-Setup — RE-02 requires Docker
--------------------------------
+## Setup — RE-02 requires Docker
 This challenge requires specific file permissions to be set at image-build time, which don't survive a plain file transfer, so it must be run via the Docker image rather than copied binaries. The group's run.sh already loads the image and starts the container (re-diagnostic-relay) automatically at boot — just attach to it:
 
     docker exec -it re-diagnostic-relay bash
@@ -153,8 +151,7 @@ If running RE-02 standalone, outside the group script:
 Inside the container: `whoami` starts as `player`, supplying the correct
 token to `/usr/local/bin/debug_helper` prints the flag and drops a root shell.
 
-Notes for players
---------------------
+## Notes for players
 - RE-01 and RE-03 have no flag stored as plaintext anywhere in the binary 
   `strings` alone will not find them.
 - RE-02's valid token is time-sensitive — a value computed once and reused
@@ -162,15 +159,6 @@ Notes for players
 - None of these challenges require Ghidra/gdb specifically, but static
   disassembly (Ghidra) is the fastest path for RE-01 and RE-03.
 
-Integration (for the group VM/init-script)
----------------------------------------------
-Self-contained under `Reverse_engineering/`. RE-01 and RE-03 need no setup
-beyond making the binaries executable. RE-02 is started automatically by the group's run.sh, which loads the
-image and launches it detached as re-diagnostic-relay:
-
-    docker load -i Reverse_engineering/RE-02_Diagnostic_Relay/debug_helper_image.tar.gz
-    docker run -d -it --name re-diagnostic-relay ctf-debug-helper
-
 No ports are exposed by any of these three challenges (all are local
 binaries, not network services). Marker-only material (source code, solve
-scripts) is `marker-only/` folder — do not ship it to other groups. 
+scripts) is in the`marker-only/` folder — do not ship it to other groups. 
