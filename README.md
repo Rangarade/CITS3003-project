@@ -162,3 +162,30 @@ token to `/usr/local/bin/debug_helper` prints the flag and drops a root shell.
 No ports are exposed by any of these three challenges (all are local
 binaries, not network services). Marker-only material (source code, solve
 scripts) is in the`marker-only/` folder — do not ship it to other groups. 
+
+
+# NEON//WIRE — Web Vulnerabilities
+
+A single themed Flask web portal ("NEON//WIRE GRID PORTAL", node NW-042) containing three web vulnerabilities. Challenge 2 yields a cookie that unlocks the admin area needed for Challenge 3, so 2 → 3 is a chain; Challenge 1 is independent.
+
+## Setup — Option A: Docker (recommended)
+Brings up the portal and the on-call operator bot (needed for the XSS challenge).
+
+```bash
+docker compose up --build      # portal on http://<host>:8080
+docker compose down            # stop + remove
+```
+
+## Setup — Option B: no Docker
+
+```bash
+./run.sh                       # portal on http://<host>:8080
+```
+Challenges 1 and 3 are fully solvable this way. Challenge 2 also needs the operator bot — run.sh prints the two commands to start it in a second shell.
+
+## Notes for players
+- No credentials to find up front — start at `/grid/records`.
+- `sqlmap` is not required and (per the unit) not permitted; the SQLi is solvable by hand.
+- The XSS "operator" reviews the feedback board every ~20s; be patient.
+
+No ports are exposed beyond **8080**. Marker-only material (sample solutions, flag list) is under `marker-only/` — do not ship it to other groups.
