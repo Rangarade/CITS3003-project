@@ -296,8 +296,11 @@ echo "   TCP port 9001"
 echo
 echo " Reverse engineering:"
 echo "   RE-01: local binary"
+echo "   ./Reverse_engineering/RE-01_Secure_Vault/handout/vm_check <access_key>"
 echo "   RE-02: Docker"
+echo "   docker exec -it re-diagnostic-relay bash"
 echo "   RE-03: local binary"
+echo "   ./Reverse_engineering/RE-03_Encrypted_Cache/handout/hidden_flag unlock"
 echo
 echo " Horizontal escalations:"
 echo "   Ironveil: Docker"
